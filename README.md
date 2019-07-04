@@ -76,7 +76,7 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 ### 示例：
 
-- ommandOrControl+A
+- CommandOrControl+A
 - CommandOrControl+Shift+Z
 
 > 在 Linux 和 Windows 上, Command 键没有任何效果, 所以使用 CommandOrControl表述, macOS 是 Command ，在 Linux 和 Windows 上是Control。
