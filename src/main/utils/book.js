@@ -71,7 +71,7 @@ export default {
             if (curr_model === "1") {
                 this.page_size = db.get("page_size") * 2;
             } else {
-                this.page_size = db.get("page_size") * 2*5;
+                this.page_size = db.get("page_size") * 2 * 5;
             }
         } else {
             if (curr_model === "1") {

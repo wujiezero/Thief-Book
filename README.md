@@ -14,23 +14,45 @@ Thief-Book 为用户提供 Vscode 版本，具体请看 https://github.com/cteam
 
 https://github.com/cteams/Thief-Book/releases
 
+
 # 演示
 
-## MAC
+# 版本区分
 
-> MAC 支持 任务栏版 + 桌面版
+- MAC 支持 桌面版 + 任务栏版
+- WIN 只有 桌面版
 
-![mac](./images/mac.gif)
+# 使用效果
 
-## WIN
+Mac 任务栏版本，任务栏过多会自动隐藏
 
-> WIN 只有桌面版
+![1.png](./images/1.png)
 
-![win](./images/win.gif)
+此版本可以随意拖拽，自定义大小，自定义背景颜色和文字颜色
+
+![2.png](./images/2.png)
+
+设置界面
+
+![3.png](./images/3.png)
+
+## 动态演示
+
+图片过大，加载太慢请访问URL查看
+
+**Mac**
+
+https://github.com/cteams/Thief-Book/blob/master/images/mac.gif
+
+**Win**
+
+https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 # 快捷键
 
-## MAC
+## 默认按键
+
+### MAC
 
 <kbd>**Cmd+Option+M** </kbd> 老板键
 
@@ -38,13 +60,71 @@ https://github.com/cteams/Thief-Book/releases
 
 <kbd>**Cmd+Option+.**</kbd> 下一页 
 
-## WIN
+### WIN
 
 <kbd>**Ctrl+Alt+M** </kbd> 老板键
 
 <kbd>**Ctrl+Alt+,** </kbd>上一页
 
 <kbd>**Ctrl+Alt+.** </kbd>下一页 
+
+## 自定义按键列表
+
+**自定义后需重启**
+
+> 快捷键可以包含多个功能键和一个键码的字符串，由符号+结合，用来定义你应用中的键盘快捷键
+
+### 示例：
+
+- ommandOrControl+A
+- CommandOrControl+Shift+Z
+
+> 在 Linux 和 Windows 上, Command 键没有任何效果, 所以使用 CommandOrControl表述, macOS 是 Command ，在 Linux 和 Windows 上是Control。
+> 使用 Alt 代替Option. Option 键只在 macOS 系统上存在, 而 Alt 键在任何系统上都有效.
+> Super键是指 Windows 和 Linux 系统上的 Windows 键，但在 macOS 里为 Cmd 键.
+
+### 可用的功能键
+
+- Command (缩写为Cmd)
+- Control (缩写为Ctrl)
+- CommandOrControl (缩写为 CmdOrCtrl)
+- Alt
+- Option
+- AltGr
+- Shift
+- Super
+
+### 可用的普通按键
+
+- 0 to 9
+- A to Z
+- F1 to F24
+- 类似~, !, @, #, $的标点符号
+- Plus
+- Space
+- Tab
+- 大写锁定（Capslock）
+- 数字锁定（Numlock）
+- Backspace
+- Delete
+- Insert
+- Return (等同于 Enter)
+- Up, Down, Left and Right
+- Home 和 End
+- PageUp 和 PageDown
+- Escape (缩写为 Esc)
+- VolumeUp, VolumeDown 和 VolumeMute
+- MediaNextTrack、MediaPreviousTrack、MediaStop 和 MediaPlayPause
+- PrintScreen
+
+### 小键盘按键
+
+- num1-num9 -数字1-数字9
+- numdec - 小数点
+- numadd - 加号
+- numsub - 减号
+- nummult - 乘号
+- numdiv - 除号
 
 # TODO
 
@@ -63,7 +143,20 @@ https://github.com/cteams/Thief-Book/releases
 - [x] 跨平台兼容
 - [x] 桌面版随意拖动，随意调整大小
 - [x] 桌面版窗口永远顶置
+- [x] 自定义文字大小
+- [x] 自动翻页
+- [x] 自定义快捷键
 - [ ] 多本小说管理
 - [ ] 在线小说下载
 - [ ] 股票支持
 
+## 关于
+
+- 出品：C.TEAM
+- E-mail：service@c.team
+
+## 反馈群
+
+加微信，备注拉人
+
+![wechat](./images/wechat.jpg)

@@ -64,6 +64,34 @@ export default {
             this.db_util.set('txt_color', "#fff").write()
         }
 
+        if (!this.db_util.has('font_size').value()) {
+            this.db_util.set('font_size', "14").write()
+        }
+
+        if (!this.db_util.has('second').value()) {
+            this.db_util.set('second', "5").write()
+        }
+
+        if (!this.db_util.has('auto_page').value()) {
+            this.db_util.set('auto_page', "0").write()
+        }
+
+        if (!this.db_util.has('key_next').value()) {
+            this.db_util.set('key_next', "CommandOrControl+Alt+.").write()
+        }
+
+        if (!this.db_util.has('key_previous').value()) {
+            this.db_util.set('key_previous', "CommandOrControl+Alt+,").write()
+        }
+
+        if (!this.db_util.has('key_boss').value()) {
+            this.db_util.set('key_boss', "CommandOrControl+Alt+M").write()
+        }
+
+        if (!this.db_util.has('key_auto').value()) {
+            this.db_util.set('key_auto', "CommandOrControl+Alt+p").write()
+        }
+        
         let isMac = 'darwin' === process.platform;
         if (!this.db_util.has('curr_model').value()) {
             if (isMac) {

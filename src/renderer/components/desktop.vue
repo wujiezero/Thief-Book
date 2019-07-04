@@ -18,7 +18,8 @@ export default {
     return {
       is_boss: true,
       color: "",
-      text: ""
+      text: "",
+      font_size: ""
     };
   },
   created() {
@@ -44,7 +45,8 @@ export default {
     onLoad() {
       var bg_color = db.get("bg_color");
       var txt_color = db.get("txt_color");
-      this.color = "background: " + bg_color + ";color:" + txt_color + ";";
+      var font_size = db.get("font_size");
+      this.color = "background: " + bg_color + ";color:" + txt_color + ";font-size:"+ font_size +"px;";
     }
   }
 };
@@ -64,6 +66,13 @@ export default {
   .boss {
     text-align: center;
     width: 100%;
+    display: table;
+    overflow: hidden;
+
+    span {
+      vertical-align: middle;
+      display: table-cell;
+    }
   }
 }
 </style>
