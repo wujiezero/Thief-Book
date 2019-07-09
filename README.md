@@ -16,14 +16,6 @@ Thief-Book 为用户提供 Vscode 版本，具体请看 https://github.com/cteam
 
 https://github.com/cteams/Thief-Book/releases
 
-# 乱码问题
-
-暂不支持 GBK 编码，需要转成 utf-8 格式
-
-**Mac:** 浏览器打开->复制->存入到新的txt文本里
-
-**Win:** 打开->另存为->选择utf-8->保存
-
 # 版本区分
 
 - MAC 支持 桌面版 + 任务栏版
@@ -132,6 +124,20 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 - numsub - 减号
 - nummult - 乘号
 - numdiv - 除号
+
+# 异常汇总
+
+## 乱码问题
+
+暂不支持 GBK 编码，需要转成 utf-8 格式
+
+**Mac:** 浏览器打开->复制->存入到新的txt文本里
+
+**Win:** 打开->另存为->选择utf-8->保存
+
+## A JavaScript error occurred in the main process 
+
+C:\Users\Administrator\AppData\Roaming\thief-book 把 thief_data.json 删掉，没有就搜索 thief_data.json 删掉重启即可
 
 # TODO
 
