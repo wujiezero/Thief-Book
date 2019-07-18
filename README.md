@@ -137,6 +137,10 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 ## A JavaScript error occurred in the main process 
 
+有可能是小说路径不对，保证小说路径正确即可
+
+or
+
 C:\Users\Administrator\AppData\Roaming\thief-book 把 thief_data.json 删掉，没有就搜索 thief_data.json 删掉重启即可
 
 # TODO
