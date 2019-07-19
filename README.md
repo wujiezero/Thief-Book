@@ -141,7 +141,13 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 or
 
-C:\Users\Administrator\AppData\Roaming\thief-book 把 thief_data.json 删掉，没有就搜索 thief_data.json 删掉重启即可
+Json文件路径：C:\Users\Administrator\AppData\Roaming\thief-book
+
+快捷键设置错打开会报错，找到 thief_data.json 没有就搜索 thief_data.json 修改里面的快捷键信息即可
+
+or
+
+把 thief_data.json 删掉， 删掉重启即可，当前页码会清空，请先记住页码在删除
 
 # TODO
 
