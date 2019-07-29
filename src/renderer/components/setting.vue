@@ -3,14 +3,24 @@
     <el-form style="width:500px;" ref="form" :model="form" label-width="100px">
       <el-form-item label="小说路径">
         <el-input
-          style="width: 73.5%;"
+          style="width:80.5%;margin-top: 7px;"
           v-model="form.file_path"
           size="mini"
           placeholder="请选择小说路径"
           prefix-icon="el-icon-tickets"
-        ></el-input>
+        >
+          <template slot="prepend">
+            <el-checkbox
+              :border="true"
+              size="mini"
+              id="lm"
+              v-model="form.errCodeChecked"
+              :checked="lmchecked"
+            >乱码</el-checkbox>
+          </template>
+        </el-input>
         <el-button type="primary" size="mini" @click="openTxt">
-          <i class="el-icon-folder-opened"></i> 选择
+          <i class="el-icon-folder-opened"></i>
         </el-button>
       </el-form-item>
 
@@ -112,6 +122,8 @@
             size="mini"
             placeholder="请输入按键"
             prefix-icon="el-icon-grape"
+            @focus="onPreviousFocus"
+            @blur="onPreviousBlur"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -125,6 +137,8 @@
             size="mini"
             placeholder="请输入按键"
             prefix-icon="el-icon-grape"
+            @focus="onNextFocus"
+            @blur="onNextBlur"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -138,6 +152,8 @@
             size="mini"
             placeholder="请输入按键"
             prefix-icon="el-icon-grape"
+            @focus="onBossFocus"
+            @blur="onBossBlur"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -151,6 +167,8 @@
             size="mini"
             placeholder="请输入按键"
             prefix-icon="el-icon-grape"
+            @focus="onAutoFocus"
+            @blur="onAutoBlur"
           ></el-input>
         </el-form-item>
       </el-col>
@@ -164,6 +182,7 @@
 import db from "../../main/utils/db";
 import dialog from "../utils/dialog";
 import { ipcRenderer } from "electron";
+import hotkeys from "hotkeys-js";
 
 export default {
   name: "setting",
@@ -181,14 +200,161 @@ export default {
         key_previous: "",
         key_next: "",
         key_boss: "",
-        key_auto: ""
+        key_auto: "",
+        lmchecked: false,
+        key_type: 0
       }
     };
   },
   created() {
     this.onLoad();
+    this.onKey();
   },
   methods: {
+    onPreviousFocus() {
+      this.form.key_previous = "";
+      this.key_type = 1;
+    },
+    onNextFocus() {
+      this.form.key_next = "";
+      this.key_type = 2;
+    },
+    onBossFocus() {
+      this.form.key_boss = "";
+      this.key_type = 3;
+    },
+    onAutoFocus() {
+      this.form.key_auto = "";
+      this.key_type = 4;
+    },
+    onPreviousBlur() {
+      if (this.form.key_previous.trim() === "") {
+        this.form.key_previous = db.get("key_previous");
+      }
+      this.key_type = 0;
+    },
+    onNextBlur() {
+      if (this.form.key_next.trim() === "") {
+        this.form.key_next = db.get("key_next");
+      }
+
+      this.key_type = 0;
+    },
+    onBossBlur() {
+      if (this.form.key_boss.trim() === "") {
+        this.form.key_boss = db.get("key_boss");
+      }
+
+      this.key_type = 0;
+    },
+    onAutoBlur() {
+      if (this.form.key_auto.trim() === "") {
+        this.form.key_auto = db.get("key_auto");
+      }
+
+      this.key_type = 0;
+    },
+    onKey() {
+      var that = this;
+
+      hotkeys.filter = function(event) {
+        return true;
+      };
+
+      hotkeys("*", function(e) {
+        if (e.key != "Backspace") {
+          if (
+            e.key === "Control" ||
+            e.key === "Meta" ||
+            e.key === "Alt" ||
+            e.key === "Shift"
+          ) {
+            if (that.key_type == 1) {
+              var arr = that.form.key_previous.split("+");
+              if (arr.length > 1) {
+                var keyx = "";
+                if (e.key === "Meta" || e.key === "Control") {
+                  keyx = "CmdOrCtrl";
+                } else {
+                  keyx = e.key;
+                }
+
+                if (arr.indexOf(keyx) <= -1) {
+                  that.form.key_previous = that.form.key_previous + keyx + "+";
+                }
+              } else {
+                if (e.key === "Meta" || e.key === "Control") {
+                  that.form.key_previous =
+                    that.form.key_previous + "CmdOrCtrl" + "+";
+                } else {
+                  that.form.key_previous = that.form.key_previous + e.key + "+";
+                }
+              }
+            } else if (that.key_type == 2) {
+              var arr = that.form.key_next.split("+");
+              if (arr.length > 1) {
+                var keyx = "";
+                if (e.key === "Meta" || e.key === "Control") {
+                  keyx = "CmdOrCtrl";
+                } else {
+                  keyx = e.key;
+                }
+
+                if (arr.indexOf(keyx) <= -1) {
+                  that.form.key_next = that.form.key_next + keyx + "+";
+                }
+              } else {
+                if (e.key === "Meta" || e.key === "Control") {
+                  that.form.key_next = that.form.key_next + "CmdOrCtrl" + "+";
+                } else {
+                  that.form.key_next = that.form.key_next + e.key + "+";
+                }
+              }
+            } else if (that.key_type == 3) {
+              var arr = that.form.key_boss.split("+");
+              if (arr.length > 1) {
+                var keyx = "";
+                if (e.key === "Meta" || e.key === "Control") {
+                  keyx = "CmdOrCtrl";
+                } else {
+                  keyx = e.key;
+                }
+
+                if (arr.indexOf(keyx) <= -1) {
+                  that.form.key_boss = that.form.key_boss + keyx + "+";
+                }
+              } else {
+                if (e.key === "Meta" || e.key === "Control") {
+                  that.form.key_boss = that.form.key_boss + "CmdOrCtrl" + "+";
+                } else {
+                  that.form.key_boss = that.form.key_boss + e.key + "+";
+                }
+              }
+            } else if (that.key_type == 4) {
+              var arr = that.form.key_auto.split("+");
+              if (arr.length > 1) {
+                var keyx = "";
+                if (e.key === "Meta" || e.key === "Control") {
+                  keyx = "CmdOrCtrl";
+                } else {
+                  keyx = e.key;
+                }
+
+                if (arr.indexOf(keyx) <= -1) {
+                  that.form.key_auto = that.form.key_auto + keyx + "+";
+                }
+              } else {
+                if (e.key === "Meta" || e.key === "Control") {
+                  that.form.key_auto = that.form.key_auto + "CmdOrCtrl" + "+";
+                } else {
+                  that.form.key_auto = that.form.key_auto + e.key + "+";
+                }
+              }
+            }
+          }
+        }
+      });
+    },
     onLoad() {
       this.form.curr_page = db.get("current_page");
       this.form.page_size = db.get("page_size");
@@ -205,6 +371,8 @@ export default {
       this.form.key_next = db.get("key_next");
       this.form.key_boss = db.get("key_boss");
       this.form.key_auto = db.get("key_auto");
+
+      this.lmchecked = db.get("errCodeChecked");
     },
     openTxt() {
       var that = this;
@@ -228,7 +396,15 @@ export default {
       db.set("key_boss", this.form.key_boss);
       db.set("key_auto", this.form.key_auto);
 
+      db.set("errCodeChecked", this.form.errCodeChecked);
+
       ipcRenderer.send("bg_text_color", "ping");
+
+      this.$message({
+        message: "保存成功，请尽情的摸鱼吧！",
+        type: "success",
+        showClose: true
+      });
     }
   }
 };
@@ -242,5 +418,33 @@ export default {
 .el-input-number--mini {
   width: 111px;
   line-height: 26px;
+}
+
+.el-checkbox__input {
+  cursor: pointer;
+  outline: 0;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: -7px;
+}
+
+#lm {
+  margin-left: -17px;
+  margin-right: -17px;
+  .el-checkbox__label {
+    display: inline-block;
+    padding-left: 10px;
+    line-height: 19px;
+    font-size: 12px;
+  }
+}
+
+.el-checkbox.is-bordered.el-checkbox--mini {
+  height: 26px;
+  border: 0px;
+}
+
+.el-checkbox.is-bordered.is-checked {
+  border: 0px;
 }
 </style>

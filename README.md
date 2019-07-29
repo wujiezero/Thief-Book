@@ -31,7 +31,13 @@ Mac 任务栏版本，任务栏过多会自动隐藏
 
 ![2.png](./images/2.png)
 
+idea 使用效果
+
+![2.png](./images/4.png)
+
 设置界面
+
+GBK 会出现乱码，请勾选乱码选项
 
 ![3.png](./images/3.png)
 
@@ -46,6 +52,16 @@ https://github.com/cteams/Thief-Book/blob/master/images/mac.gif
 **Win**
 
 https://github.com/cteams/Thief-Book/blob/master/images/win.gif
+
+**鼠标模式**
+
+切换鼠标模式，请先移动窗口到指定的位置(鼠标模式启动后不支持移动窗口)，按下一页启动鼠标模式。
+
+鼠标左键下一页，右键上一页，鼠标移开自动隐藏
+
+https://github.com/cteams/Thief-Book/blob/master/images/mouse.gif
+
+![3.png](./images/3.png)
 
 # 快捷键
 
@@ -75,8 +91,8 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 ### 示例：
 
-- CommandOrControl+A
-- CommandOrControl+Shift+Z
+- CmdOrCtrl+A
+- CmdOrCtrl+Shift+Z
 
 > 在 Linux 和 Windows 上, Command 键没有任何效果, 所以使用 CommandOrControl表述, macOS 是 Command ，在 Linux 和 Windows 上是Control。
 > 使用 Alt 代替Option. Option 键只在 macOS 系统上存在, 而 Alt 键在任何系统上都有效.
@@ -169,6 +185,8 @@ or
 - [x] 自定义文字大小
 - [x] 自动翻页
 - [x] 自定义快捷键
+- [x] 支持 GBK
+- [x] 鼠标模式
 - [ ] 多本小说管理
 - [ ] 在线小说下载
 - [ ] 股票支持
@@ -183,4 +201,3 @@ or
 加微信，备注拉人
 
 ![wechat](./images/wechat.jpg)
-

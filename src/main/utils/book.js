@@ -2,6 +2,7 @@
 
 import fs from "fs"
 import db from "./db"
+import iconv from "iconv-lite"
 
 export default {
     data() {
@@ -11,7 +12,8 @@ export default {
             page: 0,
             start: 0,
             end: this.page_size,
-            filePath: ""
+            filePath: "",
+            errCode: false
         };
     },
     getSize(text) {
@@ -56,7 +58,18 @@ export default {
             return "请选择TXT小说路径"
         }
 
-        var data = fs.readFileSync(this.filePath, 'utf-8');
+        try {
+            var data = fs.readFileSync(this.filePath);
+
+            if (this.errCode) {
+                data = iconv.decode(data, 'gb2312');
+            } else {
+                data = iconv.decode(data, 'utf-8');
+            }
+        } catch (error) {
+            console.log(error)
+            return "TXT小说路径不存在或路径不正确"
+        }
 
         var line_break = db.get("line_break");
 
@@ -64,6 +77,7 @@ export default {
     },
     init() {
         this.filePath = db.get("current_file_path");
+        this.errCode = db.get("errCodeChecked");
         var is_english = db.get("is_english");
         var curr_model = db.get("curr_model");
 

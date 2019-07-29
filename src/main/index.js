@@ -91,6 +91,7 @@ function createWindownDesktop() {
     resizable: true,
     frame: false,
     transparent: true,
+    // maximizable: false
     // y: 600,
     // x: 300
   })
@@ -104,7 +105,7 @@ function createWindownDesktop() {
 
   desktopWindow.loadURL(desktopURL)
 
-  desktopWindow.setAlwaysOnTop(true)
+  desktopWindow.setAlwaysOnTop(true);
 
   desktopWindow.setSkipTaskbar(true);
 
@@ -116,6 +117,25 @@ function createWindownDesktop() {
 function setText(text) {
   global.text = {
     text: text
+  }
+}
+
+function MouseModel(e) {
+  if (desktopWindow != null) {
+    if (e.checked == true) {
+      db.set("is_mouse", "1")
+    } else {
+      db.set("is_mouse", "0")
+    }
+
+    desktopWindow.reload();
+
+
+    setTimeout(() => {
+      let text = osUtil.getTime();
+      setText(text);
+      desktopWindow.webContents.send('text', 'boss');
+    }, 2000);
   }
 }
 
@@ -226,21 +246,37 @@ function Exit() {
 }
 
 function createKey() {
-  globalShortcut.register(db.get('key_previous'), function () {
-    PreviousPage();
-  })
+  try {
+    globalShortcut.register(db.get('key_previous'), function () {
+      PreviousPage();
+    })
 
-  globalShortcut.register(db.get('key_next'), function () {
-    NextPage();
-  })
+    globalShortcut.register(db.get('key_next'), function () {
+      NextPage();
+    })
 
-  globalShortcut.register(db.get('key_boss'), function () {
-    BossKey(2);
-  })
+    globalShortcut.register(db.get('key_boss'), function () {
+      BossKey(2);
+    })
 
-  globalShortcut.register(db.get('key_auto'), function () {
-    AutoPage();
-  })
+    globalShortcut.register(db.get('key_auto'), function () {
+      AutoPage();
+    })
+  } catch (error) {
+    const options = {
+      type: 'info',
+      title: '快捷键异常',
+      message: "设置快捷键错误，请看文档异常汇总！",
+      buttons: ['打开文档', '否']
+    }
+    dialog.showMessageBox(options, function (index) {
+      if (index == 0) {
+        shell.openExternal('https://github.com/cteams/Thief-Book/blob/master/README.md')
+      }
+    })
+
+    Exit();
+  }
 
   globalShortcut.register('CommandOrControl+Alt+X', function () {
     Exit();
@@ -290,13 +326,13 @@ function createTray() {
         type: 'radio',
         checked: db.get('curr_model') === '2',
         click() {
-
           if (desktopWindow === "null" || desktopWindow === "undefined" || typeof (desktopWindow) === "undefined") {
             createWindownDesktop();
           } else {
             try {
               desktopWindow.show();
             } catch (error) {
+              createWindownDesktop();
             }
           }
 
@@ -314,6 +350,13 @@ function createTray() {
   menuList.push(
     {
       type: "separator"
+    },
+    {
+      label: '鼠标模式',
+      type: 'checkbox',
+      click(e) {
+        MouseModel(e);
+      }
     },
     {
       label: '自动翻页',
@@ -366,7 +409,6 @@ function createTray() {
       accelerator: 'CommandOrControl+Alt+X',
       label: '退出',
       click() {
-        db.set("auto_page", "1")
         Exit();
       }
     }
@@ -392,6 +434,23 @@ ipcMain.on('bg_text_color', function () {
   }
 })
 
+ipcMain.on('MouseAction', function (e, v) {
+  if (desktopWindow != null) {
+    if (v == "1") {
+      // 鼠标左击
+      NextPage();
+    } else if (v == "2") {
+      // 鼠标右击
+      PreviousPage();
+    } else if (v == "3") {
+      // 鼠标进入
+    } else if (v == "4") {
+      // 鼠标移出
+      BossKey(2);
+    }
+  }
+})
+
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
   // Someone tried to run a second instance, we should focus our window.
   if (desktopWindow) {
@@ -407,6 +466,8 @@ if (shouldQuit) {
 app.on('ready', init)
 
 app.on('window-all-closed', () => {
+  db.set("auto_page", "1");
+  db.set("is_mouse", "0");
   if (process.platform !== 'darwin') {
     app.quit()
   }

@@ -33,6 +33,9 @@ export default {
         }
 
         this.file_json = new FileSync(path.join(STORE_PATH, '/thief_data.json'));
+        
+        console.log(this.file_json);
+
         this.db_util = low(this.file_json)
         this.db_util._.mixin(LodashId)
 
@@ -89,9 +92,17 @@ export default {
         }
 
         if (!this.db_util.has('key_auto').value()) {
-            this.db_util.set('key_auto', "CommandOrControl+Alt+p").write()
+            this.db_util.set('key_auto', "CommandOrControl+Alt+P").write()
         }
-        
+
+        if (!this.db_util.has('errCodeChecked').value()) {
+            this.db_util.set('errCodeChecked', false).write()
+        }
+
+        if (!this.db_util.has('is_mouse').value()) {
+            this.db_util.set('is_mouse', "0").write()
+        }
+
         let isMac = 'darwin' === process.platform;
         if (!this.db_util.has('curr_model').value()) {
             if (isMac) {
