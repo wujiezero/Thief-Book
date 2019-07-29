@@ -61,8 +61,6 @@ https://github.com/cteams/Thief-Book/blob/master/images/win.gif
 
 https://github.com/cteams/Thief-Book/blob/master/images/mouse.gif
 
-![3.png](./images/3.png)
-
 # 快捷键
 
 ## 默认按键
@@ -145,7 +143,11 @@ https://github.com/cteams/Thief-Book/blob/master/images/mouse.gif
 
 ## 乱码问题
 
-暂不支持 GBK 编码，需要转成 utf-8 格式
+如果乱码 设置->勾选乱码
+
+or
+
+转成 utf-8 格式
 
 **Mac:** 浏览器打开->复制->存入到新的txt文本里
 
@@ -201,3 +203,4 @@ or
 加微信，备注拉人
 
 ![wechat](./images/wechat.jpg)
+
